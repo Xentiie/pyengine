@@ -77,3 +77,4 @@ camera_entity.add_module(camera_controller)
 engine = py3DEngine(HEIGHT, WIDTH)
 engine.main_renderer.set_current_camera(camera_entity)
 engine.start_game()
+
