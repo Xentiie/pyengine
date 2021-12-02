@@ -98,26 +98,22 @@ class MainRenderer:
                     #des rotations etranges peuvent etre causés par l'invertion de l'axe z
                     mat_world = e.transform.world_matrix()
 #
-                    #t[0].append(1)
-                    #t[1].append(1)
-                    #t[2].append(1)
-#
                     #p1_transformed = matrix_vector_mult(t[0], mat_world)
                     #p2_transformed = matrix_vector_mult(t[1], mat_world)
                     #p3_transformed = matrix_vector_mult(t[2], mat_world)
-                    t[0] = np.append(t[0], 1)
-                    t[1] = np.append(t[1], 1)
-                    t[2] = np.append(t[2], 1)
+                    #t[0] = np.append(t[0], 1)
+                    #t[1] = np.append(t[1], 1)
+                    #t[2] = np.append(t[2], 1)
 
                     rot_mat = make_rotation_matrix(e.transform.rotation)
-                    p1_transformed = matrix_vector_mult(t[0], rot_mat)
-                    p2_transformed = matrix_vector_mult(t[1], rot_mat)
-                    p3_transformed = matrix_vector_mult(t[2], rot_mat)
+                    p1_rotated = matrix_vector_mult(np.append(t[0], 1), rot_mat)
+                    p2_rotated = matrix_vector_mult(np.append(t[1], 1), rot_mat)
+                    p3_rotated = matrix_vector_mult(np.append(t[2], 1), rot_mat)
 
                     
-                    p1_transformed = p1_transformed + np.append(e.transform.position, 1)
-                    p2_transformed = p2_transformed + np.append(e.transform.position, 1)
-                    p3_transformed = p3_transformed + np.append(e.transform.position, 1)
+                    p1_transformed = p1_rotated + np.append(e.transform.position, 1)
+                    p2_transformed = p2_rotated + np.append(e.transform.position, 1)
+                    p3_transformed = p3_rotated + np.append(e.transform.position, 1)
 
 
                     if(not self._is_triangle_rendered(p1_transformed, p2_transformed, p3_transformed)):
@@ -149,12 +145,8 @@ class MainRenderer:
             else:
                 return 0
             
-        #triangles_to_draw = sorted(triangles_to_draw, key=lambda t: (t[0][2]+t[1][2]+t[2][2])/3)
         triangles_to_draw = sorted(triangles_to_draw, key=cmp_to_key(sort_triangles))
 
         for t in triangles_to_draw:
             self._draw_triangle(t[0], t[1], t[2])
-
-        self.canvas.create_line(*self.lines, fill='red')
-
         
