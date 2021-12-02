@@ -9,6 +9,19 @@ class EController(Module):
 	def update(self):
 		self.entity.transform.rotation[0] += py3DEngine.delta_time * 10
 
+
+class CameraController(Module):
+
+	def start(self):
+		self.speed = 20
+		self.original_pos = self.entity.transform.position
+		self.offset = 0
+
+	def update(self):
+		self.offset += py3DEngine.delta_time *2 
+		print(self.offset)
+		self.entity.transform.position = np.array([self.original_pos[0] + sin(self.offset)*2, self.original_pos[1], self.original_pos[2]])
+
 mesh_cube = [                                                            # Mesh d'un cube
         # SOUTH
 		[[0, 0, 0],    [0, 1, 0],    [1, 1, 0]],
@@ -36,7 +49,7 @@ mesh_cube = [                                                            # Mesh 
 
 ]
 
-dims = (100,100)
+dims = (5,5)
 points = np.empty((dims[0] + 1) * (dims[1] + 1), dtype=object)
 mesh = []
 
@@ -78,6 +91,7 @@ cube_entity1.add_module(EController())
 
 camera_entity = Entity(name='camera')
 camera_entity.transform.position = np.array([0.0,0.0,0.0])
+camera_entity.add_module(CameraController())
 engine = py3DEngine(800, 800)
 engine.main_renderer.set_current_camera(camera_entity)
 engine.start_game()

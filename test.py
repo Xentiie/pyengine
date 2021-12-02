@@ -4,15 +4,19 @@ from py3dUtility import *
 import numpy as np
 import keyboard
 from renderer2 import MainRenderer
+from math import sin
 
 class CameraController(Module):
 
-	def __init__(self):
+	def start(self):
 		self.speed = 20
+		self.original_pos = self.entity.transform.rotation
+		self.offset = 0
 
 	def update(self):
-		pass
-		#self.entity.transform.rotation[2] += py3DEngine.delta_time
+		self.offset += py3DEngine.delta_time
+		self.entity.transform.rotation = np.array([self.original_pos[0], self.original_pos[1] + sin(self.offset)*2, self.original_pos[2]])
+		print(self.entity.transform.rotation)
 #		if(keyboard.is_pressed("z")):
 #			self.entity.transform.position -= self.entity.transform.forward[:-1]*py3DEngine.delta_time*self.speed
 #		if(keyboard.is_pressed("s")):

@@ -95,7 +95,6 @@ class MainRenderer:
             for m in e.get_meshes():
                 for t in m:
                     
-                    #des rotations etranges peuvent etre causés par l'invertion de l'axe z
                     mat_world = e.transform.world_matrix()
 #
                     #p1_transformed = matrix_vector_mult(t[0], mat_world)
@@ -124,9 +123,6 @@ class MainRenderer:
                     p3_viewed = matrix_vector_mult(p3_transformed, view_matrix)
 
                     #revert z axis
-                    p1_viewed[2] *= -1
-                    p2_viewed[2] *= -1
-                    p3_viewed[2] *= -1
 
                     p1_p = self.world_to_screen(p1_viewed)
                     p2_p = self.world_to_screen(p2_viewed)

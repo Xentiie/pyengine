@@ -72,7 +72,6 @@ def matrix_mult(m1: np.matrix, m2: np.matrix):
     return matrix
 
 def make_look_at_point_matrix(pos, target, up):
-    target = normalized(target);   
     new_forward = target - pos
     new_forward = normalized(new_forward)
 
@@ -123,7 +122,7 @@ def matrix_vector_mult(p: list, m: list):
     return np.array([x,y,z,w])
 
 class Module:
-    def set_parent_entity(self, entity):
+    def set_parent_entity(self, entity: 'Entity'):
         self.entity = entity
 
     def on_delete(self):
