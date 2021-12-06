@@ -3,7 +3,7 @@ from py3dEngine import py3DEngine
 from py3dUtility import *
 import numpy as np
 import keyboard
-from renderer2 import MainRenderer
+from rendering_old import MainRenderer
 from math import sin
 
 class CameraController(Module):
@@ -14,30 +14,30 @@ class CameraController(Module):
 		self.offset = 0
 
 	def update(self):
-		self.offset += py3DEngine.delta_time
-		self.entity.transform.rotation = np.array([self.original_pos[0], self.original_pos[1] + sin(self.offset)*2, self.original_pos[2]])
-		print(self.entity.transform.rotation)
-#		if(keyboard.is_pressed("z")):
-#			self.entity.transform.position -= self.entity.transform.forward[:-1]*py3DEngine.delta_time*self.speed
-#		if(keyboard.is_pressed("s")):
-#			self.entity.transform.position += self.entity.transform.forward[:-1]*py3DEngine.delta_time*self.speed
-#		if(keyboard.is_pressed("q")):
-#			self.entity.transform.position[0] += py3DEngine.delta_time*self.speed
-#		if(keyboard.is_pressed("d")):
-#			self.entity.transform.position[0] -= py3DEngine.delta_time*self.speed
-#		if(keyboard.is_pressed("shift")):
-#			self.entity.transform.position[1] -= py3DEngine.delta_time*self.speed
-#		if(keyboard.is_pressed("space")):
-#			self.entity.transform.position[1] += py3DEngine.delta_time*self.speed
-#		if(keyboard.is_pressed("c")):
-#			self.entity.transform.rotation[1] += py3DEngine.delta_time * 10
-#		if(keyboard.is_pressed("x")):
-#			self.entity.transform.rotation[1] -= py3DEngine.delta_time * 10
+		#self.offset += py3DEngine.delta_time
+		#self.entity.transform.rotation = np.array([self.original_pos[0], self.original_pos[1] + sin(self.offset)*2, self.original_pos[2]])
+		#print(self.entity.transform.rotation)
+		if(keyboard.is_pressed("z")):
+			self.entity.transform.position -= self.entity.transform.forward[:-1]*py3DEngine.delta_time*self.speed
+		if(keyboard.is_pressed("s")):
+			self.entity.transform.position += self.entity.transform.forward[:-1]*py3DEngine.delta_time*self.speed
+		if(keyboard.is_pressed("q")):
+			self.entity.transform.position[0] += py3DEngine.delta_time*self.speed
+		if(keyboard.is_pressed("d")):
+			self.entity.transform.position[0] -= py3DEngine.delta_time*self.speed
+		if(keyboard.is_pressed("shift")):
+			self.entity.transform.position[1] -= py3DEngine.delta_time*self.speed
+		if(keyboard.is_pressed("space")):
+			self.entity.transform.position[1] += py3DEngine.delta_time*self.speed
+		if(keyboard.is_pressed("c")):
+			self.entity.transform.rotation[1] += py3DEngine.delta_time * 10
+		if(keyboard.is_pressed("x")):
+			self.entity.transform.rotation[1] -= py3DEngine.delta_time * 10
         
 HEIGHT, WIDTH = 800,900
 
 #ship_mesh = import_obj_file("C:/Users/Remi/Desktop/ship.obj")
-teapot_mesh = import_obj_file("/Users/reclaire/Desktop/pyengine/teapot.obj")
+#teapot_mesh = import_obj_file("/Users/reclaire/Desktop/pyengine/teapot.obj")
 mesh = [                                                            # Mesh d'un cube
         # SOUTH
 		[[0, 0, 0],    [0, 1, 0],    [1, 1, 0]],

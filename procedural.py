@@ -1,7 +1,6 @@
 from tkinter.constants import CURRENT
 from py3dEngine import py3DEngine
 from py3dUtility import *
-from renderer2 import MainRenderer
 import numpy as np
 from noise import snoise2
 

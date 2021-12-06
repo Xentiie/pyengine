@@ -4,7 +4,6 @@ from py3dUtility import *
 from functools import cmp_to_key
 import tkinter as tk
 import numpy as np
-import time
 
 class MainRenderer:
     def __init__(self, root: tk.Tk, HEIGHT: int, WIDTH: int):

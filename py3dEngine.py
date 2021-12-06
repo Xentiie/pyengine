@@ -1,4 +1,4 @@
-from renderer2 import *
+from rendering_old import *
 from py3dUtility import *
 import tkinter as tk
 import time

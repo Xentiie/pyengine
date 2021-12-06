@@ -3,7 +3,7 @@ from numbers import Number
 from math import cos, sin, tan, pi, sqrt
 import numpy as np
 import keyboard
-from numpy.linalg import norm
+import mouse
 
 def import_obj_file(file: str) -> list:
     verts = []
@@ -73,11 +73,11 @@ def matrix_mult(m1: np.matrix, m2: np.matrix):
 
 def make_look_at_point_matrix(pos, target, up):
     new_forward = target - pos
-    new_forward = normalized(new_forward)
+    new_forward = normalized_old(new_forward)
 
     a = new_forward * np.dot(up,new_forward)
-    new_up = up - a
-    new_up = normalized(new_up)
+    new_up = up-a
+    new_up = normalized_old(new_up)
 
     new_right = np.cross(new_up, new_forward)
 
@@ -97,6 +97,8 @@ def make_rotation_matrix(rotation):
         [0,0,0,1]
     ], dtype=np.float32)
     return rotation_matrix
+
+
 
 #only for translation/rotation
 def matrix_inverse(m):
@@ -122,7 +124,7 @@ def matrix_vector_mult(p: list, m: list):
     return np.array([x,y,z,w])
 
 class Module:
-    def set_parent_entity(self, entity: 'Entity'):
+    def set_parent_entity(self, entity):
         self.entity = entity
 
     def on_delete(self):
@@ -371,13 +373,13 @@ class Vector4D(Vector):
         assert(isinstance(v, Number))
         self._list[3] = v
 
-#class Inputs:
-#
-#    def __init__(self):
-#        self.last_mouse_pos = mouse.get_position()
-#        self.mouse_velocity = (0.0,0.0)
-#    
-#    def update_values(self):
-#        new_pos = mouse.get_position()
-#        self.mouse_velocity = (new_pos[0] - self.last_mouse_pos[0], new_pos[1] - self.last_mouse_pos[1])
-#        self.last_mouse_pos = new_pos
+class Inputs:
+
+    def __init__(self):
+        self.last_mouse_pos = mouse.get_position()
+        self.mouse_velocity = (0.0,0.0)
+    
+    def update_values(self):
+        new_pos = mouse.get_position()
+        self.mouse_velocity = (new_pos[0] - self.last_mouse_pos[0], new_pos[1] - self.last_mouse_pos[1])
+        self.last_mouse_pos = new_pos
